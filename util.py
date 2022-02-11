@@ -12,7 +12,8 @@ import cv2
 def getResolution(path):
     image = pydicom.read_file(glob.glob(os.path.join(path, "*.dcm"))[0])
     image_array = image.pixel_array
-    whole_array = np.expand_dims(np.empty((image_array.shape[0], image_array.shape[0])), axis=0)
+    print(image_array.shape)
+    whole_array = np.expand_dims(np.empty((image_array.shape[0], image_array.shape[1])), axis=0)
     return whole_array
 
 
