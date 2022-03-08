@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>423</width>
-    <height>497</height>
+    <width>1508</width>
+    <height>570</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>1090</x>
       <y>170</y>
       <width>401</width>
       <height>21</height>
@@ -33,7 +33,7 @@
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>1090</x>
       <y>10</y>
       <width>401</width>
       <height>31</height>
@@ -68,7 +68,7 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>1090</x>
       <y>50</y>
       <width>401</width>
       <height>110</height>
@@ -85,7 +85,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="weight_value"/>
+        <widget class="QLineEdit" name="weight_value">
+         <property name="text">
+          <string>2</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -99,7 +103,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="percentile_value"/>
+        <widget class="QLineEdit" name="percentile_value">
+         <property name="text">
+          <string>99.5</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -115,7 +123,7 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>1090</x>
       <y>200</y>
       <width>401</width>
       <height>251</height>
@@ -263,13 +271,24 @@
      </layout>
     </widget>
    </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>1071</width>
+      <height>511</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="graph_v"/>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>423</width>
+     <width>1508</width>
      <height>21</height>
     </rect>
    </property>
