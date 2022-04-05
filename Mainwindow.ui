@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>1090</x>
-      <y>170</y>
+      <y>220</y>
       <width>401</width>
-      <height>21</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -71,7 +71,7 @@
       <x>1090</x>
       <y>50</y>
       <width>401</width>
-      <height>110</height>
+      <height>151</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -87,7 +87,7 @@
        <item>
         <widget class="QLineEdit" name="weight_value">
          <property name="text">
-          <string>2</string>
+          <string>20</string>
          </property>
         </widget>
        </item>
@@ -105,7 +105,7 @@
        <item>
         <widget class="QLineEdit" name="percentile_value">
          <property name="text">
-          <string>99.5</string>
+          <string>99.775</string>
          </property>
         </widget>
        </item>
@@ -124,7 +124,7 @@
     <property name="geometry">
      <rect>
       <x>1090</x>
-      <y>200</y>
+      <y>270</y>
       <width>401</width>
       <height>251</height>
      </rect>

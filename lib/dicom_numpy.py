@@ -3,69 +3,14 @@ from math import isclose
 
 import numpy as np
 
-from src.exceptions import DicomImportException, MissingInstanceNumberException
+from lib.exceptions import DicomImportException, MissingInstanceNumberException
 
 
 logger = logging.getLogger(__name__)
 
 
 def combine_slices(datasets, rescale=None, enforce_slice_spacing=True, sort_by_instance=False):
-    """
-    Given a list of pydicom datasets for an image series, stitch them together into a
-    three-dimensional numpy array.  Also calculate a 4x4 affine transformation
-    matrix that converts the ijk-pixel-indices into the xyz-coordinates in the
-    DICOM patient's coordinate system.
-    Returns a two-tuple containing the 3D-ndarray and the affine matrix.
-    If `rescale` is set to `None` (the default), then the image array dtype
-    will be preserved, unless any of the DICOM images contain either the
-    `Rescale Slope
-    <https://dicom.innolitics.com/ciods/ct-image/ct-image/00281053>`_ or the
-    `Rescale Intercept <https://dicom.innolitics.com/ciods/ct-image/ct-image/00281052>`_
-    attributes.  If either of these attributes are present, they will be
-    applied to each slice individually.
-    If `rescale` is `True` the voxels will be cast to `float32`, if set to
-    `False`, the original dtype will be preserved even if DICOM rescaling information is present.
-    If `enforce_slice_spacing` is set to `True`, `combine_slices` will raise a
-    `DicomImportException` if there are missing slices detected in the
-    datasets. If `enforce_slice_spacing` is set to `False`, missing slices will
-    be ignored.
-    If `sort_by_instance` is set to `False`, `combine_slices` will sort the
-    image instances by position along the slice axis in increasing order. This
-    is the default for backwards-compatibility reasons. If `True`, the image
-    instances will be sorted according to decreasing `InstanceNumber`. If
-    images in the series do not have an `InstanceNumber` and `sort_by_instance`
-    is `True`, a `MissingInstanceNumberException` will be raised.
-    The returned array has the column-major byte-order.
-    Datasets produced by reading DICOMDIR files are ignored.
-    This function requires that the datasets:
-    - Be in same series (have the same
-      `Series Instance UID <https://dicom.innolitics.com/ciods/ct-image/general-series/0020000e>`_,
-      `Modality <https://dicom.innolitics.com/ciods/ct-image/general-series/00080060>`_,
-      and `SOP Class UID <https://dicom.innolitics.com/ciods/ct-image/sop-common/00080016>`_).
-    - The binary storage of each slice must be the same (have the same
-      `Bits Allocated <https://dicom.innolitics.com/ciods/ct-image/image-pixel/00280100>`_ and
-      `Pixel Representation <https://dicom.innolitics.com/ciods/ct-image/image-pixel/00280103>`_).
-    - The image slice must approximately form a grid. This means there can not
-      be any missing internal slices (missing slices on the ends of the dataset
-      are not detected). This requirement is relaxed if `enforce_slice_spacing` is set to `False`.
-    - Each slice must have the same
-      `Rows <https://dicom.innolitics.com/ciods/ct-image/image-pixel/00280010>`_,
-      `Columns <https://dicom.innolitics.com/ciods/ct-image/image-pixel/00280011>`_,
-      `Samples Per Pixel <https://dicom.innolitics.com/ciods/ct-image/image-pixel/00280002>`_,
-      `Pixel Spacing <https://dicom.innolitics.com/ciods/ct-image/image-plane/00280030>`_, and
-      `Image Orientation (Patient) <https://dicom.innolitics.com/ciods/ct-image/image-plane/00200037>`_
-      attribute values.
-    - The direction cosines derived from the
-      `Image Orientation (Patient) <https://dicom.innolitics.com/ciods/ct-image/image-plane/00200037>`_
-      attribute must, within 1e-4, have a magnitude of 1.  The cosines must
-      also be approximately perpendicular (their dot-product must be within
-      1e-4 of 0).  Warnings are displayed if any of these approximations are
-      below 1e-8, however, since we have seen real datasets with values up to
-      1e-4, we let them pass.
-    - The `Image Position (Patient) <https://dicom.innolitics.com/ciods/ct-image/image-plane/00200032>`_
-      values must approximately form a line.
-    If any of these conditions are not met, a `dicom_numpy.DicomImportException` is raised.
-    """
+
     slice_datasets = [ds for ds in datasets if not _is_dicomdir(ds)]
 
     if len(slice_datasets) == 0:
@@ -85,12 +30,7 @@ def combine_slices(datasets, rescale=None, enforce_slice_spacing=True, sort_by_i
 
 
 def sort_by_instance_number(slice_datasets):
-    """
-    Given a list of pydicom Datasets, return the datasets sorted by instance
-    number in the image orientation direction.
-    This does not require `pixel_array` to be present, and so may be used to
-    associate instance Datasets with the voxels returned from `combine_slices`.
-    """
+
     instance_numbers = [getattr(ds, 'InstanceNumber', None) for ds in slice_datasets]
     if any(n is None for n in instance_numbers):
         raise MissingInstanceNumberException
@@ -106,11 +46,7 @@ def sort_by_instance_number(slice_datasets):
 
 
 def sort_by_slice_position(slice_datasets):
-    """
-    Given a list of pydicom Datasets, return the datasets sorted in the image orientation direction.
-    This does not require `pixel_array` to be present, and so may be used to associate instance Datasets
-    with the voxels returned from `combine_slices`.
-    """
+
     slice_positions = _slice_positions(slice_datasets)
     return [
         d for (s, d) in sorted(
@@ -144,15 +80,14 @@ def _merge_slice_pixel_arrays(sorted_datasets, rescale=None):
             intercept = first_dataset[0x20051409].value
             slope = first_dataset[0x2005140A].value
         except KeyError:
-            print('해당 키가 없습니다.')
+            print('rescale slope and intercept does not exist')
             intercept = 0
             slope = 1
-    
+
     for k, dataset in enumerate(sorted_datasets):
         pixel_array = dataset.pixel_array.T
-
-            # slope = float(getattr(dataset, 'RescaleSlope', 1))
-            # intercept = float(getattr(dataset, 'RescaleIntercept', 0))
+        # slope = float(getattr(dataset, 'RescaleSlope', 1))
+        # intercept = float(getattr(dataset, 'RescaleIntercept', 0))
         pixel_array = pixel_array.astype(np.float32) * slope + intercept
         voxels[..., k] = pixel_array
 
@@ -183,13 +118,7 @@ def _ijk_to_patient_xyz_transform_matrix(sorted_datasets):
 
 
 def _validate_slices_form_uniform_grid(sorted_datasets, enforce_slice_spacing=True):
-    """
-    Perform various data checks to ensure that the list of slices form a
-    evenly-spaced grid of data. Optionally, this can be slightly relaxed to
-    allow for missing slices in the volume.
-    Some of these checks are probably not required if the data follows the
-    DICOM specification, however it seems pertinent to check anyway.
-    """
+
     invariant_properties = [
         'Modality',
         'SOPClassUID',
@@ -214,11 +143,7 @@ def _validate_slices_form_uniform_grid(sorted_datasets, enforce_slice_spacing=Tr
 
 
 def _validate_image_orientation(image_orientation):
-    """
-    Ensure that the image orientation is supported
-    - The direction cosines have magnitudes of 1 (just in case)
-    - The direction cosines are perpendicular
-    """
+
     row_cosine, column_cosine, slice_cosine = _extract_cosines(image_orientation)
 
     if not _almost_zero(np.dot(row_cosine, column_cosine), 1e-4):
