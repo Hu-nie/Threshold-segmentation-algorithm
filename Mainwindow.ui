@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1508</width>
+    <width>1252</width>
     <height>570</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>1090</x>
+      <x>830</x>
       <y>220</y>
       <width>401</width>
       <height>31</height>
@@ -33,7 +33,7 @@
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>1090</x>
+      <x>830</x>
       <y>10</y>
       <width>401</width>
       <height>31</height>
@@ -68,7 +68,7 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>1090</x>
+      <x>830</x>
       <y>50</y>
       <width>401</width>
       <height>151</height>
@@ -123,7 +123,7 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>1090</x>
+      <x>830</x>
       <y>270</y>
       <width>401</width>
       <height>251</height>
@@ -276,7 +276,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>1071</width>
+      <width>801</width>
       <height>511</height>
      </rect>
     </property>
@@ -288,7 +288,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1508</width>
+     <width>1252</width>
      <height>21</height>
     </rect>
    </property>
