@@ -18,6 +18,7 @@ Paper Link : [Threshold-segmentation-algorithm-paper][Threshold-segmentation-alg
 <p align="center"><img src="https://user-images.githubusercontent.com/66903108/166236862-8bf4b570-77e8-4883-a3b9-6bd67f7dde1e.png"></p>
 
 <p align="center">	Flow diagram of threshold segmentation </p>
+
 # Usage
 
 Comming Soon
@@ -27,3 +28,18 @@ Comming Soon
 This application is built on the basis of PYQT5, so you can experiment through GUI.
 
 <p align="center">	<img src="https://user-images.githubusercontent.com/66903108/166240653-8eeb6163-1097-4be2-9dfc-4524ac430e61.png"> </p>
+
+
+# Citations
+```bibtex
+@article{WANG201530,
+    title = {Threshold segmentation algorithm for automatic extraction of cerebral vessels from brain magnetic resonance angiography images},
+    journal = {Journal of Neuroscience Methods},
+    volume = {241},
+    pages = {30-36},
+    year = {2015},
+    issn = {0165-0270},
+    doi = {https://doi.org/10.1016/j.jneumeth.2014.12.003},
+    url = {https://www.sciencedirect.com/science/article/pii/S0165027014004166}
+}
+```
