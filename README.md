@@ -9,11 +9,7 @@ Paper Link : [Threshold-segmentation-algorithm-paper][Threshold-segmentation-alg
 
 
 ![](https://user-images.githubusercontent.com/66903108/166236862-8bf4b570-77e8-4883-a3b9-6bd67f7dde1e.png){: .align-center}
-*image_caption*
+* <em>Flow diagram of threshold segmentation</em>*
 
 
-<p align="center">
-  <img style="margin:50px 0 10px 0" src="https://user-images.githubusercontent.com/66903108/166236862-8bf4b570-77e8-4883-a3b9-6bd67f7dde1e.png" alt="text" width="number" />
-  
-  <em>Flow diagram of threshold segmentation</em>
-</p>
+
