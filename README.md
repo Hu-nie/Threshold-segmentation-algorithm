@@ -18,8 +18,11 @@ Paper Link : [Threshold-segmentation-algorithm-paper][Threshold-segmentation-alg
 <p align="center"><img src="https://user-images.githubusercontent.com/66903108/166236862-8bf4b570-77e8-4883-a3b9-6bd67f7dde1e.png"></p>
 
 <p align="center">	Flow diagram of threshold segmentation </p>
+# Usage
 
+Comming Soon
 
+# GUI
 
 This application is built on the basis of PYQT5, so you can experiment through GUI.
 
